@@ -1,18 +1,18 @@
 #include "integrate.hpp"
 
 int main() {
-    const size_t N3 = 3, N5 = 5;  // порядок квадратур Гаусса должен быть от 2 до 5
+    const size_t N3 = 3, N5 = 5;  // ГЇГ®Г°ГїГ¤Г®ГЄ ГЄГўГ Г¤Г°Г ГІГіГ° ГѓГ ГіГ±Г±Г  Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г®ГІ 2 Г¤Г® 5
 
     std::ofstream output;
     output.open("integralErr.csv");
 
 // std::function<double(double)> sinRef = static_cast<double(*)(double)>(std::sin);
 
-    const double a = 0., b = 10.; // отрезок интегрирования [a;b]
+    const double a = 0., b = 10.; // Г®ГІГ°ГҐГ§Г®ГЄ ГЁГ­ГІГҐГЈГ°ГЁГ°Г®ГўГ Г­ГЁГї [a;b]
     double h = 10, err, integral;
 
-    for (int i = 0; i <= 6; i++) {                                      // цикл с уменьшением шага h
-        integral = integrate_dx<double, double, N3>(std::sin, a, b, h); // функцию sin(x) передаем в виде параметра
+    for (int i = 0; i <= 6; i++) {                                      // Г¶ГЁГЄГ« Г± ГіГ¬ГҐГ­ГјГёГҐГ­ГЁГҐГ¬ ГёГ ГЈГ  h
+        integral = integrate_dx<double, double, N3>(std::sin, a, b, h); // ГґГіГ­ГЄГ¶ГЁГѕ sin(x) ГЇГҐГ°ГҐГ¤Г ГҐГ¬ Гў ГўГЁГ¤ГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г 
         err = std::abs(std::cos(a) - std::cos(b) - integral);
         output << N3 << ";" << h << ";" << err << std::endl;
 
