@@ -13,13 +13,13 @@ int main() {
     printCoefs(dcoef5, points5);
 
 
-// запись результата в файл
+// Р·Р°РїРёСЃСЊ СЂРµР·СѓР»СЊС‚Р°С‚Р° РІ С„Р°Р№Р»
     std::ofstream output;
     output.open("derivativeErr.csv");
 
     double dt, err, x0 = 1, h = 1;
     for (int i = 0; i <= 15; i++) {
-        dt = calcDerivative1st<double>(std::exp, dcoef3, points3, x0, h); // exp передаем в виде параметра
+        dt = calcDerivative1st<double>(std::exp, dcoef3, points3, x0, h); // exp РїРµСЂРµРґР°РµРј РІ РІРёРґРµ РїР°СЂР°РјРµС‚СЂР°
         err = std::abs(std::exp(x0) - dt);
         output << points3.size() << ";" << h << ";" << err << std::endl;
 
