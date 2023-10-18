@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "../Interpol/newton_interpolator.hpp"
 
-TEST(Newton_interpolation, Uniform) {             // тест интерполяции функции y = x^3. Равномерные узлы интерполяции.
+TEST(Newton_interpolation, Uniform) {             // С‚РµСЃС‚ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё С„СѓРЅРєС†РёРё y = x^3. Р Р°РІРЅРѕРјРµСЂРЅС‹Рµ СѓР·Р»С‹ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё.
   const unsigned int N_points = 6;
   double a = 1, b = 3;
   double xtest = 1.9, ytest, yfunc;
@@ -13,15 +13,15 @@ TEST(Newton_interpolation, Uniform) {             // тест интерполяции функции y
       Ym[i] = pow(Xm[i], 3);
   }
 
-  NewtonInterpolator<double, double, N_points> Ni(Xm, Ym);  // построение многочлена по узлам
-  ytest = Ni.interpolate(xtest);                            // вычисление интерполяционного значения функции в точке xtest
-  ytest = round(ytest * 1000) / 1000;                      // округление до 3х знаков после запятой
-  yfunc = round(pow(xtest, 3) * 1000) / 1000;              // вычисление значения функции в точке xtest
+  NewtonInterpolator<double, double, N_points> Ni(Xm, Ym);  // РїРѕСЃС‚СЂРѕРµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅР° РїРѕ СѓР·Р»Р°Рј
+  ytest = Ni.interpolate(xtest);                            // РІС‹С‡РёСЃР»РµРЅРёРµ РёРЅС‚РµСЂРїРѕР»СЏС†РёРѕРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ xtest
+  ytest = round(ytest * 1000) / 1000;                      // РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ 3С… Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
+  yfunc = round(pow(xtest, 3) * 1000) / 1000;              // РІС‹С‡РёСЃР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ xtest
 
   EXPECT_EQ(yfunc, ytest);
 }
 
-TEST(Newton_interpolation, Chebyshev) {             // тест интерполяции функции y = x^3. Чебышевские узлы интерполяции.
+TEST(Newton_interpolation, Chebyshev) {             // С‚РµСЃС‚ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё С„СѓРЅРєС†РёРё y = x^3. Р§РµР±С‹С€РµРІСЃРєРёРµ СѓР·Р»С‹ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё.
     const unsigned int N_points = 6;
     double a = 1, b = 3;
     double xtest = 1.9, ytest, yfunc;
@@ -33,10 +33,10 @@ TEST(Newton_interpolation, Chebyshev) {             // тест интерполяции функции
         Ym[i] = pow(Xm[i], 3);
     }
 
-    NewtonInterpolator<double, double, N_points> Ni(Xm, Ym);  // построение многочлена по узлам
-    ytest = Ni.interpolate(xtest);                            // вычисление интерполяционного значения функции в точке xtest
-    ytest = round(ytest * 1000) / 1000;                      // округление до 3х знаков после запятой
-    yfunc = round(pow(xtest, 3) * 1000) / 1000;              // вычисление значения функции в точке xtest
+    NewtonInterpolator<double, double, N_points> Ni(Xm, Ym);  // РїРѕСЃС‚СЂРѕРµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅР° РїРѕ СѓР·Р»Р°Рј
+    ytest = Ni.interpolate(xtest);                            // РІС‹С‡РёСЃР»РµРЅРёРµ РёРЅС‚РµСЂРїРѕР»СЏС†РёРѕРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ xtest
+    ytest = round(ytest * 1000) / 1000;                      // РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ 3С… Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
+    yfunc = round(pow(xtest, 3) * 1000) / 1000;              // РІС‹С‡РёСЃР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ xtest
 
     EXPECT_EQ(yfunc, ytest);
 }
