@@ -1,18 +1,18 @@
 #include "integrate.hpp"
 
 int main() {
-    const size_t N3 = 3, N5 = 5;  // ïîðÿäîê êâàäðàòóð Ãàóññà äîëæåí áûòü îò 2 äî 5
+    const size_t N3 = 3, N5 = 5;  // порядок квадратур Гаусса должен быть от 2 до 5
 
     std::ofstream output;
     output.open("integralErr.csv");
 
 // std::function<double(double)> sinRef = static_cast<double(*)(double)>(std::sin);
 
-    const double a = 0., b = 10.; // îòðåçîê èíòåãðèðîâàíèÿ [a;b]
+    const double a = 0., b = 10.; // отрезок интегрирования [a;b]
     double h = 10, err, integral;
 
-    for (int i = 0; i <= 6; i++) {                                      // öèêë ñ óìåíüøåíèåì øàãà h
-        integral = integrate_dx<double, double, N3>(std::sin, a, b, h); // ôóíêöèþ sin(x) ïåðåäàåì â âèäå ïàðàìåòðà
+    for (int i = 0; i <= 6; i++) {                                      // цикл с уменьшением шага h
+        integral = integrate_dx<double, double, N3>(std::sin, a, b, h); // функцию sin(x) передаем в виде параметра
         err = std::abs(std::cos(a) - std::cos(b) - integral);
         output << N3 << ";" << h << ";" << err << std::endl;
 
@@ -26,4 +26,3 @@ int main() {
 
     return 0;
 }
-
