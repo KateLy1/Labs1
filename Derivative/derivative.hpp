@@ -8,20 +8,20 @@
 
 using namespace std;
 
-// Макрос. Распечатывает в "std::cout" выражение в виде строки (для отладки)
+// РњР°РєСЂРѕСЃ. Р Р°СЃРїРµС‡Р°С‚С‹РІР°РµС‚ РІ "std::cout" РІС‹СЂР°Р¶РµРЅРёРµ РІ РІРёРґРµ СЃС‚СЂРѕРєРё (РґР»СЏ РѕС‚Р»Р°РґРєРё)
 #define PrintExpression(Expression)\
      std::cout << "{" #Expression "}: " << (Expression) <<\
      		std::endl;
 
-// печать вектора для отладки
+// РїРµС‡Р°С‚СЊ РІРµРєС‚РѕСЂР° РґР»СЏ РѕС‚Р»Р°РґРєРё
 template<typename Type>
-void printVector(std::vector<Type>& myVector) {  // для отладки
+void printVector(std::vector<Type>& myVector) {  // РґР»СЏ РѕС‚Р»Р°РґРєРё
     for (auto element : myVector)
         std::cout << element << ' ';
     std::cout << '\n';
 }
 
-// печать матрицы для отладки
+// РїРµС‡Р°С‚СЊ РјР°С‚СЂРёС†С‹ РґР»СЏ РѕС‚Р»Р°РґРєРё
 template<typename Type>
 void print2dVector(std::vector<std::vector<Type>> const &matrix) {
     for (std::vector<Type> row: matrix) {
@@ -32,7 +32,7 @@ void print2dVector(std::vector<std::vector<Type>> const &matrix) {
     }
 }
 
-// функция вычисления факториала
+// С„СѓРЅРєС†РёСЏ РІС‹С‡РёСЃР»РµРЅРёСЏ С„Р°РєС‚РѕСЂРёР°Р»Р°
 unsigned int factorial(unsigned int n) {
     if (n == 0)
         return 1;
@@ -41,17 +41,17 @@ unsigned int factorial(unsigned int n) {
 
 template<typename RealType>
 struct Matrix {
-    int n; // количество строк
-    int m; // количество столбцов
-    std::vector<std::vector<RealType>> data; // данные матрицы
+    int n; // РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє
+    int m; // РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ
+    std::vector<std::vector<RealType>> data; // РґР°РЅРЅС‹Рµ РјР°С‚СЂРёС†С‹
 };
 
-// решение системы линейных уравнений методом Гаусса
+// СЂРµС€РµРЅРёРµ СЃРёСЃС‚РµРјС‹ Р»РёРЅРµР№РЅС‹С… СѓСЂР°РІРЅРµРЅРёР№ РјРµС‚РѕРґРѕРј Р“Р°СѓСЃСЃР°
 template<typename RealType>
 std::vector<RealType> gauss(Matrix<RealType>& A, std::vector<RealType>& b) {
-// Прямой ход
+// РџСЂСЏРјРѕР№ С…РѕРґ
     for (int i = 0; i < A.n - 1; i++) {
-        // Поиск максимального элемента в столбце
+        // РџРѕРёСЃРє РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ СЃС‚РѕР»Р±С†Рµ
         int maxi = i;
         RealType max_value = std::abs(A.data[i][i]);
         for (int j = i + 1; j < A.n; j++) {
@@ -61,13 +61,13 @@ std::vector<RealType> gauss(Matrix<RealType>& A, std::vector<RealType>& b) {
             }
         }
 
-// Перестановка строк, чтобы максимальный элемент был на диагонали
+// РџРµСЂРµСЃС‚Р°РЅРѕРІРєР° СЃС‚СЂРѕРє, С‡С‚РѕР±С‹ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ Р±С‹Р» РЅР° РґРёР°РіРѕРЅР°Р»Рё
         if (maxi != i) {
             std::swap(A.data[i], A.data[maxi]);
             std::swap(b[i], b[maxi]);
         }
 
-// Преобразование текущей строки и строк ниже
+// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С‚РµРєСѓС‰РµР№ СЃС‚СЂРѕРєРё Рё СЃС‚СЂРѕРє РЅРёР¶Рµ
         for (int j = i + 1; j < A.n; j++) {
             RealType factor = A.data[j][i] / A.data[i][i];
             for (int k = i; k < A.m; k++) {
@@ -77,7 +77,7 @@ std::vector<RealType> gauss(Matrix<RealType>& A, std::vector<RealType>& b) {
         }
     }
 
-    // Обратный ход
+    // РћР±СЂР°С‚РЅС‹Р№ С…РѕРґ
     std::vector<RealType> x(A.n);
     for (int i = A.n - 1; i >= 0; i--) {
         RealType sum = 0;
@@ -90,15 +90,15 @@ std::vector<RealType> gauss(Matrix<RealType>& A, std::vector<RealType>& b) {
     return x;
 }
 
-// Инициализация матрицы для нахождения коэффициентов для узлов points
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°С‚СЂРёС†С‹ РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ РґР»СЏ СѓР·Р»РѕРІ points
 template<typename RealType>
 void InitMatrix(Matrix<RealType>& A, const std::vector<RealType>& points) {
     int n = points.size();
 
-    for (int i = 0; i <= n; i++){       // матрица размера (n+1)x(n+1)
+    for (int i = 0; i <= n; i++){       // РјР°С‚СЂРёС†Р° СЂР°Р·РјРµСЂР° (n+1)x(n+1)
         std::vector<RealType> v;
         for (int j = 0; j <= n; j++) {
-            v.push_back(1);             // первая строка матрицы состоит из 1
+            v.push_back(1);             // РїРµСЂРІР°СЏ СЃС‚СЂРѕРєР° РјР°С‚СЂРёС†С‹ СЃРѕСЃС‚РѕРёС‚ РёР· 1
         }
         A.data.push_back(v);
     }
@@ -115,7 +115,7 @@ void InitMatrix(Matrix<RealType>& A, const std::vector<RealType>& points) {
     }
 }
 
-// Коэффициенты для вычисления первой производной
+// РљРѕСЌС„С„РёС†РёРµРЅС‚С‹ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РїРµСЂРІРѕР№ РїСЂРѕРёР·РІРѕРґРЅРѕР№
 template<typename RealType>
 struct DerivativeCoef {
     RealType centralCoef;
@@ -123,7 +123,7 @@ struct DerivativeCoef {
 };
 
 
-// Функция для вычисления коэффициентов
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ
 template<typename RealType>
 DerivativeCoef<RealType> calcDerivativeCoef(const std::vector<RealType>& points) noexcept {
     DerivativeCoef<RealType> dcoef;
@@ -132,7 +132,7 @@ DerivativeCoef<RealType> calcDerivativeCoef(const std::vector<RealType>& points)
     // print2dVector<RealType>(A.data);
 
     int n = points.size();
-    std::vector<RealType> b(n+1, 0); // правая часть системы уравнений нули, кроме 2-го элемента
+    std::vector<RealType> b(n+1, 0); // РїСЂР°РІР°СЏ С‡Р°СЃС‚СЊ СЃРёСЃС‚РµРјС‹ СѓСЂР°РІРЅРµРЅРёР№ РЅСѓР»Рё, РєСЂРѕРјРµ 2-РіРѕ СЌР»РµРјРµРЅС‚Р°
     b[1] = 1;
 
     A.n = n + 1; A.m = n + 1;
@@ -146,8 +146,8 @@ DerivativeCoef<RealType> calcDerivativeCoef(const std::vector<RealType>& points)
     return dcoef;
 }
 
-// Вычисление первой производной по коэффициентам.
-// Аналитическая функция для вычисления в точках (x0+h, x0-h и т.д) передается в виде параметра.
+// Р’С‹С‡РёСЃР»РµРЅРёРµ РїРµСЂРІРѕР№ РїСЂРѕРёР·РІРѕРґРЅРѕР№ РїРѕ РєРѕСЌС„С„РёС†РёРµРЅС‚Р°Рј.
+// РђРЅР°Р»РёС‚РёС‡РµСЃРєР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РІ С‚РѕС‡РєР°С… (x0+h, x0-h Рё С‚.Рґ) РїРµСЂРµРґР°РµС‚СЃСЏ РІ РІРёРґРµ РїР°СЂР°РјРµС‚СЂР°.
 template<typename RealType>
 RealType calcDerivative1st(RealType func(RealType), 
                             DerivativeCoef<RealType> dcoef, 
@@ -164,7 +164,7 @@ RealType calcDerivative1st(RealType func(RealType),
     return d;
 }
 
-//Печать коэффициентов
+//РџРµС‡Р°С‚СЊ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ
 template<typename RealType>
 void printCoefs(DerivativeCoef<RealType> dcoef, const std::vector<RealType>& points) {
 
