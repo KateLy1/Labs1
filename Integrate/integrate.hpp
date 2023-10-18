@@ -25,7 +25,7 @@ struct GaussQ {
 };
 
 
-// Функция интегрирования на одном отрезке
+// Р¤СѓРЅРєС†РёСЏ РёРЅС‚РµРіСЂРёСЂРѕРІР°РЅРёСЏ РЅР° РѕРґРЅРѕРј РѕС‚СЂРµР·РєРµ
 template <typename Callable, typename RealType, std::size_t N>
 decltype(auto) integrate(
                          Callable func(RealType),
@@ -35,7 +35,7 @@ decltype(auto) integrate(
     std::vector<RealType> xg;
     std::vector<RealType> wg;
 
-    switch ( N )  // выбор квадратуры Гаусса N от 2 до 5
+    switch ( N )  // РІС‹Р±РѕСЂ РєРІР°РґСЂР°С‚СѓСЂС‹ Р“Р°СѓСЃСЃР° N РѕС‚ 2 РґРѕ 5
       {
          case 2:
             xg = polyn.xg2;
@@ -67,7 +67,7 @@ decltype(auto) integrate(
 }
 
 
-// Функция разбивает отрезок [a;b] на подотрезки не более dx и призводит интегрирование на всех подотрезках
+// Р¤СѓРЅРєС†РёСЏ СЂР°Р·Р±РёРІР°РµС‚ РѕС‚СЂРµР·РѕРє [a;b] РЅР° РїРѕРґРѕС‚СЂРµР·РєРё РЅРµ Р±РѕР»РµРµ dx Рё РїСЂРёР·РІРѕРґРёС‚ РёРЅС‚РµРіСЂРёСЂРѕРІР°РЅРёРµ РЅР° РІСЃРµС… РїРѕРґРѕС‚СЂРµР·РєР°С…
 template <typename Callable, typename RealType, std::size_t N>
 decltype(auto) integrate_dx(
                          Callable func(RealType),
@@ -78,7 +78,7 @@ decltype(auto) integrate_dx(
     const GaussQ<RealType> polyn;
 
     RealType integral = 0, integral_dx = 0, an, bn;
-    int ndx = static_cast<int>((b - a)/dx);         // количество целых интервалов dx
+    int ndx = static_cast<int>((b - a)/dx);         // РєРѕР»РёС‡РµСЃС‚РІРѕ С†РµР»С‹С… РёРЅС‚РµСЂРІР°Р»РѕРІ dx
 
     for (int i = 0; i <= ndx; i++) {
 
