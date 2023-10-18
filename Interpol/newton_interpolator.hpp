@@ -10,11 +10,11 @@
 #define M_PI (3.14159265358979323846)
 #endif
 
-// Класс интерполянта Ньютона
+// РљР»Р°СЃСЃ РёРЅС‚РµСЂРїРѕР»СЏРЅС‚Р° РќСЊСЋС‚РѕРЅР°
 template<typename xType, typename yType, unsigned int N>
 class NewtonInterpolator
 {
-std::array<xType, N> Xm; // узлы интерполяции
+std::array<xType, N> Xm; // СѓР·Р»С‹ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
 std::array<yType, N> Ym;
 
 public:
@@ -23,33 +23,33 @@ public:
     {
     }
 
-    yType interpolate(const xType& x) const noexcept   // x - точка интерполяции
+    yType interpolate(const xType& x) const noexcept   // x - С‚РѕС‡РєР° РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
     {
-        yType DN, f, denom;  // DN-полином, denom-знаменатель разделенной разности
+        yType DN, f, denom;  // DN-РїРѕР»РёРЅРѕРј, denom-Р·РЅР°РјРµРЅР°С‚РµР»СЊ СЂР°Р·РґРµР»РµРЅРЅРѕР№ СЂР°Р·РЅРѕСЃС‚Рё
         unsigned int i,j,k;
         DN = Ym[0];
         for(i=1; i<N; i++){
             f = 0;
-            //следующее слагаемое полинома
+            //СЃР»РµРґСѓСЋС‰РµРµ СЃР»Р°РіР°РµРјРѕРµ РїРѕР»РёРЅРѕРјР°
             for(j=0; j<=i; j++){
                 denom = 1;
-                //считаем знаменатель разделенной разности
+                //СЃС‡РёС‚Р°РµРј Р·РЅР°РјРµРЅР°С‚РµР»СЊ СЂР°Р·РґРµР»РµРЅРЅРѕР№ СЂР°Р·РЅРѕСЃС‚Рё
                 for(k=0; k<=i; k++){
                     if (k!=j) denom *= (Xm[j]-Xm[k]);
                 }
-                //считаем разделенную разность
+                //СЃС‡РёС‚Р°РµРј СЂР°Р·РґРµР»РµРЅРЅСѓСЋ СЂР°Р·РЅРѕСЃС‚СЊ
                 f += Ym[j]/denom;
             }
-            //домножаем разделенную разность на скобки (x-x[0])...(x-x[i-1])
+            //РґРѕРјРЅРѕР¶Р°РµРј СЂР°Р·РґРµР»РµРЅРЅСѓСЋ СЂР°Р·РЅРѕСЃС‚СЊ РЅР° СЃРєРѕР±РєРё (x-x[0])...(x-x[i-1])
             for(k=0; k<i; k++)
                 f *= (x-Xm[k]);
-            DN += f;   //полином
+            DN += f;   //РїРѕР»РёРЅРѕРј
         }
     return DN;
     }
 };
 
-// функция равномерного деления отрезка на узлы интерполяции (число узлов N>1)
+// С„СѓРЅРєС†РёСЏ СЂР°РІРЅРѕРјРµСЂРЅРѕРіРѕ РґРµР»РµРЅРёСЏ РѕС‚СЂРµР·РєР° РЅР° СѓР·Р»С‹ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё (С‡РёСЃР»Рѕ СѓР·Р»РѕРІ N>1)
 template <typename xType, unsigned int N>
 std::array<xType, N> divide_ab(xType a, xType b, std::array<xType, N>& x_nodes)
 {
@@ -61,48 +61,48 @@ std::array<xType, N> divide_ab(xType a, xType b, std::array<xType, N>& x_nodes)
     return x_nodes;
 }
 
-// функция деления отрезка на Чебышевские узлы интерполяции (число узлов N>1)
+// С„СѓРЅРєС†РёСЏ РґРµР»РµРЅРёСЏ РѕС‚СЂРµР·РєР° РЅР° Р§РµР±С‹С€РµРІСЃРєРёРµ СѓР·Р»С‹ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё (С‡РёСЃР»Рѕ СѓР·Р»РѕРІ N>1)
 template <typename xType, unsigned int N>
 std::array<xType, N> divide_ab_Cheb(xType a, xType b, std::array<xType, N>& x_nodes)
 {
     int nn = int(x_nodes.size());
     for (int i = 0; i < nn; i++) {
-        x_nodes[nn-1-i] = (b+a)/2 + ((b-a)/2) * std::cos(M_PI*(2*i+1)/(2*nn));  // индексация массива такова, чтобы узлы щли в возрастающем порядке
+        x_nodes[nn-1-i] = (b+a)/2 + ((b-a)/2) * std::cos(M_PI*(2*i+1)/(2*nn));  // РёРЅРґРµРєСЃР°С†РёСЏ РјР°СЃСЃРёРІР° С‚Р°РєРѕРІР°, С‡С‚РѕР±С‹ СѓР·Р»С‹ С‰Р»Рё РІ РІРѕР·СЂР°СЃС‚Р°СЋС‰РµРј РїРѕСЂСЏРґРєРµ
     }
     return x_nodes;
 }
 
 
-// функция вычисления ошибки интерполяции. N_points - количество узлов интерполяции
+// С„СѓРЅРєС†РёСЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РѕС€РёР±РєРё РёРЅС‚РµСЂРїРѕР»СЏС†РёРё. N_points - РєРѕР»РёС‡РµСЃС‚РІРѕ СѓР·Р»РѕРІ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
 template<typename xType, typename yType, unsigned int N_points>
-yType Newton_interpolator_err(xType a, xType b, bool Cheb_nodes)    // равноменные или Чебышевские узлы
+yType Newton_interpolator_err(xType a, xType b, bool Cheb_nodes)    // СЂР°РІРЅРѕРјРµРЅРЅС‹Рµ РёР»Рё Р§РµР±С‹С€РµРІСЃРєРёРµ СѓР·Р»С‹
 {
     yType y_interpolated, y_true;
     std::array<xType, N_points> Xm {};
     std::array<yType, N_points> Ym {};
     yType err_mod_max, err_mod;
-    const unsigned int ni_points = 1000;    // количество точек интерполяции
-    std::array<xType, ni_points> Xi {};    // точки интерполяции
+    const unsigned int ni_points = 1000;    // РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
+    std::array<xType, ni_points> Xi {};    // С‚РѕС‡РєРё РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
 
     err_mod_max = 0.0; err_mod = 0.0;
-    std::fill(std::begin(Xm), std::end(Xm), 0.0);  // обнуление массивов
+    std::fill(std::begin(Xm), std::end(Xm), 0.0);  // РѕР±РЅСѓР»РµРЅРёРµ РјР°СЃСЃРёРІРѕРІ
     std::fill(std::begin(Ym), std::end(Ym), 0.0);
     std::fill(std::begin(Xi), std::end(Xi), 0.0);
 
     if (Cheb_nodes)
-        divide_ab_Cheb<xType, N_points> (a, b, Xm);   // деление отрезка по узлам интерполяции
+        divide_ab_Cheb<xType, N_points> (a, b, Xm);   // РґРµР»РµРЅРёРµ РѕС‚СЂРµР·РєР° РїРѕ СѓР·Р»Р°Рј РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
     else
         divide_ab<xType, N_points> (a, b, Xm);
 
-    for (unsigned int i=0; i<N_points; i++){  // вычисление функции в узлах
+    for (unsigned int i=0; i<N_points; i++){  // РІС‹С‡РёСЃР»РµРЅРёРµ С„СѓРЅРєС†РёРё РІ СѓР·Р»Р°С…
         Ym[i] = std::exp(Xm[i]);
     }
-    NewtonInterpolator<xType, yType, N_points> Ni(Xm, Ym);  // построение многочлена по узлам
+    NewtonInterpolator<xType, yType, N_points> Ni(Xm, Ym);  // РїРѕСЃС‚СЂРѕРµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅР° РїРѕ СѓР·Р»Р°Рј
 
-    divide_ab<xType, ni_points>(a, b, Xi);     //деление отрезка по точкам интерполяции
-    for (unsigned int i=0; i<ni_points; i++) {  // цикл по всем точкам интерполяции и вычисления максимальной ошибки
-        y_interpolated = Ni.interpolate(Xi[i]);      // вычисление интерполяционного значения функции в точке
-        y_true = std::exp(Xi[i]);                   // вычисление точного значения функции по формуле
+    divide_ab<xType, ni_points>(a, b, Xi);     //РґРµР»РµРЅРёРµ РѕС‚СЂРµР·РєР° РїРѕ С‚РѕС‡РєР°Рј РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
+    for (unsigned int i=0; i<ni_points; i++) {  // С†РёРєР» РїРѕ РІСЃРµРј С‚РѕС‡РєР°Рј РёРЅС‚РµСЂРїРѕР»СЏС†РёРё Рё РІС‹С‡РёСЃР»РµРЅРёСЏ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РѕС€РёР±РєРё
+        y_interpolated = Ni.interpolate(Xi[i]);      // РІС‹С‡РёСЃР»РµРЅРёРµ РёРЅС‚РµСЂРїРѕР»СЏС†РёРѕРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ С‚РѕС‡РєРµ
+        y_true = std::exp(Xi[i]);                   // РІС‹С‡РёСЃР»РµРЅРёРµ С‚РѕС‡РЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РїРѕ С„РѕСЂРјСѓР»Рµ
         err_mod = std::abs(y_true - y_interpolated);
         if (err_mod > err_mod_max) err_mod_max = err_mod;
     }
