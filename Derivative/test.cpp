@@ -11,7 +11,7 @@ TEST(TestCaseDerivative, Coef5) {
         sumcoef += dcoef5.otherCoefs[i];
     }
 
-    sumcoef = round(sumcoef * 1000) / 1000;               // округление до 3х знаков после запятой
+    sumcoef = round(sumcoef * 1000) / 1000;               // РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ 3С… Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
     centralcoef = round(dcoef5.centralCoef * 1000) / 1000;
     	
 	EXPECT_EQ(centralcoef, -sumcoef);
